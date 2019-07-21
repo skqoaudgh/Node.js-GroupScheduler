@@ -1,0 +1,23 @@
+{
+  "name": "node.js-groupscheduler",
+  "version": "1.0.0",
+  "description": "Group Scheduler made with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skqoaudgh/Node.js-GroupScheduler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skqoaudgh/Node.js-GroupScheduler/issues"
+  },
+  "homepage": "https://github.com/skqoaudgh/Node.js-GroupScheduler#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2"
+  }
+}
