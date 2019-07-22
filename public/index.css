@@ -12,6 +12,7 @@ body {
 }
 
 .nav-title {
+    margin-left: 20px;
     font-size: 26px;
     font-weight: 500;
     color: white;
@@ -20,11 +21,12 @@ body {
 .menu-button {
     all: unset;
     padding: 5px;
-    margin-left: 5px;
+    margin-right: 50px;
     height: 20px;
     padding: 1px 10px 1px 10px;
     color: white;
     font-weight: 500;
+    text-transform: uppercase;
     cursor: pointer;
 }
 
