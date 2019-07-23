@@ -25,6 +25,7 @@ function drawCalendar(month) {
     element = '<table class="calendar">';
 
     element += '<tr><td colspan=7 class="calendar-top">';
+    element += '<button type="button" class="monthButton">R</button>';
     element += '<button type="button" class="monthButton"><</button>';
     element += year + '.' + pad(month+1);
     element += '<button type="button" class="monthButton">></button></td></tr>'
@@ -83,17 +84,23 @@ for(let i=0; i<calendarButton.length; i++) {
 function addEventListenerOnButton() {
     const monthButton = document.getElementsByClassName('monthButton');
     monthButton[0].addEventListener('click', (event) => {
-        drawCalendar(--month);
-        if(month < 1) {
-            month = 12;
-            year --;
-        }
+        Calendar.setFullYear(today_year);
+        drawCalendar(today_month);
     });
     monthButton[1].addEventListener('click', (event) => {
-        drawCalendar(++month);
-        if(month > 12) {
-            month = 1;
+        month --;
+        if(month < 0) {
+            month = 11;
+            year --;
+        }
+        drawCalendar(month);
+    });
+    monthButton[2].addEventListener('click', (event) => {
+        month ++;
+        if(month > 11) {
+            month = 0;
             year ++;
         }
+        drawCalendar(month);
     });
 }
