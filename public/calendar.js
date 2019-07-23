@@ -1,0 +1,99 @@
+let wrapper = document.getElementById('calendar-wrapper');
+
+let element;
+let day = new Array('일', '월', '화', '수', '목', '금', '토');
+
+let Calendar = new Date();
+let year = Calendar.getFullYear();     // Returns year
+let month = Calendar.getMonth();    // Returns month (0-11)
+let today = Calendar.getDate();    // Returns day (1-31)
+let weekday = Calendar.getDay();    // Returns day (1-31)
+
+const today_year = year;
+const today_month = month;
+const today_day = today;
+
+let DAYS_OF_WEEK = 7;
+let DAYS_OF_MONTH = 31;
+
+drawCalendar(month);
+
+function drawCalendar(month) {
+    Calendar.setDate(1);
+    Calendar.setMonth(month);
+
+    element = '<table class="calendar">';
+
+    element += '<tr><td colspan=7 class="calendar-top">';
+    element += '<button type="button" class="monthButton"><</button>';
+    element += year + '.' + pad(month+1);
+    element += '<button type="button" class="monthButton">></button></td></tr>'
+
+    element += '<tr>'
+    for(i=0; i<DAYS_OF_WEEK; i++) {
+        if(i == 0 || i == 6)
+            element += '<td class="calendar-week calendar-weekend">' + day[i] + '</td>';
+        else
+            element += '<td class="calendar-week">' + day[i] + '</td>';
+    }
+    element += '</tr>';
+    
+    element += '<tr>';
+    for(i=0; i<Calendar.getDay(); i++)
+        element += '<td class="calendar-day">-</td>';
+    
+    for(let i=0; i<DAYS_OF_MONTH; i++) {
+        if(Calendar.getDate() > i) {
+            let week_day = Calendar.getDay();;
+    
+            if(week_day == 0)
+                element += '<tr>'
+    
+            if(week_day != DAYS_OF_WEEK) {
+                let day  = Calendar.getDate();
+                if(today_year == Calendar.getFullYear() && today_month == Calendar.getMonth() && today_day == Calendar.getDate())
+                    element += '<td id="calendar-today" class="calendar-day">' + day + '</td>' + '</td>';
+                else
+                    element += '<td class="calendar-day">' + day + '</td>';
+            }
+        if(week_day == DAYS_OF_WEEK)
+            element += '</tr>';
+        }
+        Calendar.setDate(Calendar.getDate()+1);
+    }
+    
+    element += '</table>'
+    
+    wrapper.innerHTML = element;
+    addEventListenerOnButton();
+}
+
+function pad(n) {
+    n = n + '';
+    return n.length >= 2 ? n : new Array(3 - n.length).join('0') + n;
+}
+
+const calendarButton = document.getElementsByClassName('calendar-day');
+for(let i=0; i<calendarButton.length; i++) {
+    addEventListener('click', (event) => {
+
+    });
+}
+
+function addEventListenerOnButton() {
+    const monthButton = document.getElementsByClassName('monthButton');
+    monthButton[0].addEventListener('click', (event) => {
+        drawCalendar(--month);
+        if(month < 1) {
+            month = 12;
+            year --;
+        }
+    });
+    monthButton[1].addEventListener('click', (event) => {
+        drawCalendar(++month);
+        if(month > 12) {
+            month = 1;
+            year ++;
+        }
+    });
+}

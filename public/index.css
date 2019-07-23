@@ -55,6 +55,12 @@ body {
 
 .calendar-top {
     background: #f2f4ff;
+    font-size: 28px;
+}
+
+.calendar-week {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .calendar-weekend {
@@ -68,4 +74,22 @@ body {
     text-align: left;
     vertical-align: top;
     font-size: 20px;
+    cursor: pointer;
+}
+
+#calendar-today {
+    border: 5px solid #d1aa6b;
+    font-weight: bold;
+}
+
+.monthButton {
+    all: unset;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    margin: 0 20px 0 20px;
+    background: #b4b4b4;
+    border: 2px solid #626262;
+    text-align: center;
+    line-height: 24px;
 }
