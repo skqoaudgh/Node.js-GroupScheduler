@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style/navigation.css">
+    <link rel="stylesheet" type="text/css" href="style/create.css">
+    <title>Group Scheduler</title>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-title">
+            준자혁지
+        </div>
+        <div class="nav-menu">
+            <button type="button" class="menu-button" onclick="location.href='/'">Home</button>
+            <button type="button" class="menu-button" onclick="location.href='/create'">Create</button>
+        </div>
+    </header>
+    <section class="main">
+        <div id="create-form">
+            <form method="POST" action="/create">
+                <fieldset>
+                    <legend>일정 만들기</legend>
+                    <label for="name">일정이름</label>
+                    <input type="text" name="name" id="create-name" autocomplete="off">
+                    <label for="period-start">시작시간</label>
+                    <input type="date" name="period-start" id="create-start">
+                    <label for="period-end">마감시간</label>
+                    <input type="date" name="period-end" id="create-end">
+                    <label for="comment">설명</label>
+                    <textarea rows="5" name="comment" id="create-comment"></textarea>
+                    <label for="image">첨부자료</label>
+                    <input type="file" name="image" id="create-image" accept="image/*">
+                    <button id="create-submit">확인</button>
+                </fieldset>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
