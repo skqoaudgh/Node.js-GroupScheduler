@@ -85,6 +85,8 @@ function addEventListenerOnButton() {
     const monthButton = document.getElementsByClassName('monthButton');
     monthButton[0].addEventListener('click', (event) => {
         Calendar.setFullYear(today_year);
+        month = today_month;
+        year = today_year;
         drawCalendar(today_month);
     });
     monthButton[1].addEventListener('click', (event) => {
