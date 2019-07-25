@@ -37,7 +37,11 @@ function addScheduleOnCalendar(year, month) {
         if(year != scheduleYear || month != scheduleMonth) 
             return;
 
-        const str = `<div class="schedule-item" id="${element._id}" style="background-color:${element.Color}; cursor:pointer;"></div>`
+        const str = `<div 
+                        class="schedule-item" 
+                        style="background-color:${element.Color}; cursor:pointer;" 
+                        onclick="window.location='/schedule/${element._id}'">
+                    </div>`
         scheduleWrapper[scheduleDate-1].innerHTML += str;
     });
 }

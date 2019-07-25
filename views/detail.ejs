@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="/style/navigation.css">
+    <link rel="stylesheet" type="text/css" href="/style/detail.css">
+    <title>Group Scheduler</title>
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-title">
+            준자혁지
+        </div>
+        <div class="nav-menu">
+            <button type="button" class="menu-button" onclick="location.href='/'">Home</button>
+            <button type="button" class="menu-button" onclick="location.href='/create'">Create</button>
+        </div>
+    </header>
+    <section class="main">
+        
+        <div id="detail">
+            <label for="name">작성자이름</label>
+            <input type="text" name="name" value="<%= schedule.Creator %>" readonly>
+            <label for="title">일정이름</label>
+            <input type="text" name="title" value="<%= schedule.Title %>" readonly>
+            <label for="periodStart">시작시간</label>
+            <input type="date" name="periodStart" id="periodStart" readonly>
+            <label for="periodEnd">마감시간</label>
+            <input type="date" name="periodEnd" id="periodEnd" readonly>
+            <label for="comment">설명</label>
+            <textarea rows="5" name="comment" readonly><%= schedule.Comment %></textarea>
+            <label for="image">첨부자료</label>
+            <div name="image"></div>
+        </div>
+    </section>
+</body>
+<script>
+    document.getElementById('periodStart').valueAsDate = new Date('<%= schedule.StartPeriod %>');
+    document.getElementById('periodEnd').valueAsDate = new Date('<%= schedule.EndPeriod %>');
+</script>
+</html>
