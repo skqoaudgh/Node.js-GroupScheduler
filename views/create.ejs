@@ -20,11 +20,13 @@
     </header>
     <section class="main">
         <div id="create-form">
-            <form method="POST" action="/create">
+            <form method="POST" action="/create" name="Form" onsubmit="return validateForm()">
                 <fieldset>
                     <legend>일정 만들기</legend>
-                    <label for="name">일정이름</label>
+                    <label for="name">작성자이름</label>
                     <input type="text" name="name" id="create-name" autocomplete="off">
+                    <label for="title">일정이름</label>
+                    <input type="text" name="title" id="create-title" autocomplete="off">
                     <label for="periodStart">시작시간</label>
                     <input type="date" name="periodStart" id="create-start">
                     <label for="periodEnd">마감시간</label>
@@ -32,11 +34,29 @@
                     <label for="comment">설명</label>
                     <textarea rows="5" name="comment" id="create-comment"></textarea>
                     <label for="image">첨부자료</label>
-                    <input type="file" name="image" id="create-image" accept="image/*">
+                    <input type="file" name="image" id="create-image" accept="image/*" multiple>
                     <button id="create-submit">확인</button>
                 </fieldset>
             </form>
         </div>
     </section>
 </body>
+<script>
+    function validateForm() {
+        const name = document.forms['Form']['name'].value;
+        const periodStart = document.forms['Form']['periodStart'].value;
+        const periodEnd = document.forms['Form']['periodEnd'].value;
+        const comment = document.forms['Form']['comment'].value;
+
+        if(name == null || name == '' || periodStart == null || periodStart == '' 
+        || periodEnd == null || periodEnd == '' || comment == null || comment == '') {
+            alert('모든 항목을 채워주세요.');
+            return false;
+        }
+        if(periodStart > periodEnd) {
+            alert('시작시간과 마감시간이 잘못 입력되었습니다.');
+            return false;
+        }
+    }
+</script>
 </html>

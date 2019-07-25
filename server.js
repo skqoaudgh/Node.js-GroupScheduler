@@ -1,4 +1,8 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const session = require('express-session');
+
+const createController = require('./controllers/create');
 
 const app = express();
 
@@ -7,19 +11,32 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(session({  // 2
+    secret: 'we all like cats',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.get('/', (req, res, next) => {
-    res.render('index.ejs');
+    const create = req.session.create;
+    req.session.destroy();
+    res.render('index.ejs', {create: create});
 });
 
 app.get('/create', (req, res, next) => {
     res.render('create.ejs');
 });
 
-app.post('/create', (req, res ,next) => {
-    console.log(req.body);
-});
+app.post('/create', createController.createSchedule);
 
-app.listen(3000, () => {
-    console.log('express server is opened on port 3000.'); 
-});
+mongoose.connect(`mongodb+srv://${'Cada'}:${'asd123'}@node-rest-shop-zqnku.mongodb.net/${'GroupScheduler'}?retryWrites=true&w=majority`, {
+    useNewUrlParser: true
+})
+.then(() => {
+    app.listen(3000, () => {
+        console.log('express server is opened on port 3000.');
+    });
+})
+.catch((err) => {
+    console.error(err);
+})
