@@ -32,7 +32,12 @@
             <label for="comment">설명</label>
             <textarea rows="5" name="comment" readonly><%= schedule.Comment %></textarea>
             <label for="image">첨부자료</label>
-            <div name="image"></div>
+            <div name="image">
+                <% let images = schedule.Image %>
+                <% for(let i=0; i<images.length; i++) { %>
+                    <img src='/schedule/<%=images[i]%>'>
+                <% } %>
+            </div>
         </div>
     </section>
 </body>

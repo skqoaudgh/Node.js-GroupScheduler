@@ -22,13 +22,18 @@ module.exports = {
         if(req.body.image == '') 
             req.body.image = null;
             
+        let images = [];
+        req.files.forEach(element => {
+            images.push(element.filename);
+        });
+
         let schedule = new Schedule({
             Creator: req.body.name,
             Title: req.body.title,
             StartPeriod: req.body.periodStart,
             EndPeriod: req.body.periodEnd,
             Comment: req.body.comment,
-            Image: req.body.image,
+            Image: images,
             Color: getRandomColor()
         });
         await schedule.save();

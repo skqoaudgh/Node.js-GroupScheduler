@@ -27,7 +27,6 @@ const upload = multer({
         },
         filename: function (req, file, cb) {
             const filename = new Date().valueOf() + file.originalname;
-            req.body.image = filename;
             cb(null, filename);
         }
     })
