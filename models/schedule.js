@@ -25,7 +25,11 @@ const ScheduleSchema = new Schema({
     Image: [{
         type: String,
         required: false
-    }]
+    }],
+    Color: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('schedule', ScheduleSchema);

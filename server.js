@@ -17,10 +17,11 @@ app.use(session({  // 2
     saveUninitialized: true
 }));
 
-app.get('/', (req, res, next) => {
+app.get('/', async (req, res, next) => {
+    const schedule = await createController.getSchedules();
     const create = req.session.create;
     req.session.destroy();
-    res.render('index.ejs', {create: create});
+    res.render('index.ejs', {schedule: schedule, create: create});
 });
 
 app.get('/create', (req, res, next) => {

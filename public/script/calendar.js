@@ -18,6 +18,31 @@ let DAYS_OF_MONTH = 31;
 
 drawCalendar(month);
 
+// util
+function pad(n) {
+    n = n + '';
+    return n.length >= 2 ? n : new Array(3 - n.length).join('0') + n;
+}
+
+// schedule
+function addScheduleOnCalendar(year, month) {
+    const scheduleWrapper = document.getElementsByClassName('schedule-wrapper');
+    schedule.forEach(element => {
+        let startPeriod = new Date(element.StartPeriod);
+        
+        let scheduleYear = startPeriod.getFullYear();
+        let scheduleMonth = startPeriod.getMonth();
+        let scheduleDate = startPeriod.getDate();
+
+        if(year != scheduleYear || month != scheduleMonth) 
+            return;
+
+        const str = `<div class="schedule-item" id="${element._id}" style="background-color:${element.Color}; cursor:pointer;"></div>`
+        scheduleWrapper[scheduleDate-1].innerHTML += str;
+    });
+}
+
+// calendar
 function drawCalendar(month) {
     Calendar.setDate(1);
     Calendar.setMonth(month);
@@ -53,9 +78,9 @@ function drawCalendar(month) {
             if(week_day != DAYS_OF_WEEK) {
                 let day  = Calendar.getDate();
                 if(today_year == Calendar.getFullYear() && today_month == Calendar.getMonth() && today_day == Calendar.getDate())
-                    element += '<td id="calendar-today" class="calendar-day">' + day + '</td>' + '</td>';
+                    element += '<td id="calendar-today" class="calendar-day">' + day + '<div class="schedule-wrapper"></div>' + '</td>' + '</td>';
                 else
-                    element += '<td class="calendar-day">' + day + '</td>';
+                    element += '<td class="calendar-day">' + day + '<div class="schedule-wrapper"></div>' + '</td>';
             }
         if(week_day == DAYS_OF_WEEK)
             element += '</tr>';
@@ -67,13 +92,11 @@ function drawCalendar(month) {
     
     wrapper.innerHTML = element;
     addEventListenerOnButton();
+
+    addScheduleOnCalendar(year ,month);
 }
 
-function pad(n) {
-    n = n + '';
-    return n.length >= 2 ? n : new Array(3 - n.length).join('0') + n;
-}
-
+// event
 const calendarButton = document.getElementsByClassName('calendar-day');
 for(let i=0; i<calendarButton.length; i++) {
     addEventListener('click', (event) => {
