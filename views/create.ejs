@@ -20,7 +20,7 @@
     </header>
     <section class="main">
         <div id="create-form">
-            <form method="POST" action="/create" name="Form" onsubmit="return validateForm()">
+            <form method="POST" action="/create" name="Form" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <fieldset>
                     <legend>일정 만들기</legend>
                     <label for="name">작성자이름</label>
