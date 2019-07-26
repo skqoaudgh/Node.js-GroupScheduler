@@ -42,6 +42,9 @@
     </section>
 </body>
 <script>
+    const periodStart = document.getElementById('create-start');
+    periodStart.valueAsDate = new Date();
+
     function validateForm() {
         const name = document.forms['Form']['name'].value;
         const periodStart = document.forms['Form']['periodStart'].value;
