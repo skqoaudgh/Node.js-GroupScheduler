@@ -18,31 +18,73 @@
             <button type="button" class="menu-button" onclick="location.href='/create'">Create</button>
         </div>
     </header>
-    <section class="main">
-        
+    <section class="detail-wrapper">
         <div id="detail">
-            <label for="name">작성자이름</label>
-            <input type="text" name="name" value="<%= schedule.Creator %>" readonly>
-            <label for="title">일정이름</label>
-            <input type="text" name="title" value="<%= schedule.Title %>" readonly>
-            <label for="periodStart">시작시간</label>
-            <input type="date" name="periodStart" id="periodStart" readonly>
-            <label for="periodEnd">마감시간</label>
-            <input type="date" name="periodEnd" id="periodEnd" readonly>
-            <label for="comment">설명</label>
-            <textarea rows="5" name="comment" readonly><%= schedule.Comment %></textarea>
-            <label for="image">첨부자료</label>
-            <div name="image">
-                <% let images = schedule.Image %>
-                <% for(let i=0; i<images.length; i++) { %>
-                    <img src='/schedule/<%=images[i]%>'>
-                <% } %>
-            </div>
+            <fieldset>
+                <legend>상세 일정</legend>
+                <label for="name">작성자이름</label>
+                <input type="text" name="name" value="<%= schedule.Creator %>" readonly>
+                <label for="title">일정이름</label>
+                <input type="text" name="title" value="<%= schedule.Title %>" readonly>
+                <label for="periodStart">시작날짜</label>
+                <input type="date" name="periodStart" id="periodStart" readonly>
+                <label for="periodEnd">마감날짜</label>
+                <input type="date" name="periodEnd" id="periodEnd" readonly>
+                <label for="comment">설명</label>
+                <textarea rows="5" name="comment" readonly><%= schedule.Comment %></textarea>
+                <label for="image">첨부자료</label>
+                <div name="image">
+                    <% let images = schedule.Image %>
+                    <% for(let i=0; i<images.length; i++) { %>
+                        <img src='/schedule/<%=images[i]%>' id="image">
+                    <% } %>
+                </div>
+            </fieldset>
+        </div> 
+        <div class="myPeriod">
+            <form method="POST" action="/detail" name="Form" onsubmit="return validateForm()">
+                <fieldset>
+                    <legend>나의 일정</legend>
+                    <label for="myStart">시작날짜</label>
+                    <input type="date" name="myStart" id="myStart">
+                    <label for="myEnd">마감날짜</label>
+                    <input type="date" name="myEnd" id="myEnd">
+                    <div>
+                        <label for="periodFlag">가능한 날짜</label>
+                        <input type="radio" name="periodFlag" value="ok" checked="checked">
+                    </div>
+                    <div>
+                        <label for="periodFlag">불가능한 날짜</label>
+                        <input type="radio" name="periodFlag" value="no">
+                    </div>
+                    <button id="create-submit">확인</button>
+                </fieldset>
+            </form>
         </div>
     </section>
 </body>
 <script>
     document.getElementById('periodStart').valueAsDate = new Date('<%= schedule.StartPeriod %>');
     document.getElementById('periodEnd').valueAsDate = new Date('<%= schedule.EndPeriod %>');
+
+    document.getElementById('myStart').valueAsDate = document.getElementById('periodStart').valueAsDate;
+    document.getElementById('myEnd').valueAsDate = document.getElementById('periodEnd').valueAsDate;
+
+    function validateForm() {
+        const myStart = document.forms['Form']['myStart'].value;
+        const myEnd = document.forms['Form']['myEnd'].value;
+        const periodStart = document.getElementById('periodStart').value;
+        const periodEnd = document.getElementById('periodEnd').value;
+
+        if(myStart == null || myStart == '' || myEnd == null || myEnd == '') {
+            alert('모든 항목을 채워주세요.');
+            return false;
+        }
+        console.log(myStart, periodStart)
+        if(myStart > myEnd || myStart < periodStart || myEnd > periodEnd) {
+            alert('시작날짜와 마감날짜가 잘못 입력되었습니다.');
+            return false;
+        }
+    }
 </script>
 </html>
