@@ -1,3 +1,8 @@
+label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
 #detail {
     width: 500px;
     margin-top: 50px;
