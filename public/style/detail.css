@@ -28,13 +28,13 @@ label {
     height: auto;
 }
 
-.myPeriod {
+.period {
     display: flex;
     flex-direction: column;
-    margin: 50px 300px 0 0;
+    margin: 50px 300px 50px 0;
 }
 
-.myPeriod input[type="radio"] {
+.period input[type="radio"] {
     width: 15px;
 }
 
