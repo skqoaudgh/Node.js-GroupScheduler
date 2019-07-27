@@ -39,10 +39,5 @@ module.exports = {
         await schedule.save();
         req.session.create = true;
         res.redirect('/');
-    },
-
-    detailSchedule: async (req, res, next) => {
-        let result = await Schedule.findById(req.params.id);
-        res.render('detail.ejs', {schedule: result});
     }
 }

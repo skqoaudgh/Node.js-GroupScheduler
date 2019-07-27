@@ -2,9 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const multer = require('multer');
-const path = require('path');
 
 const scheduleController = require('./controllers/schedule');
+const periodController = require('./controllers/period');
 
 const app = express();
 
@@ -43,7 +43,8 @@ app.get('/create', (req, res, next) => {
     res.render('create.ejs');
 });
 app.post('/create', upload.array('image'), scheduleController.createSchedule);
-app.get('/schedule/:id', scheduleController.detailSchedule);
+app.get('/schedule/:id', periodController.detailSchedule);
+app.post('/detail', periodController.createPeriod);
 
 mongoose.connect(`mongodb+srv://${'Cada'}:${'asd123'}@node-rest-shop-zqnku.mongodb.net/${'GroupScheduler'}?retryWrites=true&w=majority`, {
     useNewUrlParser: true
