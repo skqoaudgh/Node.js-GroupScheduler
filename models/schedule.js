@@ -32,4 +32,4 @@ const ScheduleSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('schedule', ScheduleSchema);
+module.exports = mongoose.model('Schedule', ScheduleSchema);
