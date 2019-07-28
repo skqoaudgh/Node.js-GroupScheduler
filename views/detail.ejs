@@ -11,7 +11,7 @@
 <body>
     <header class="nav">
         <div class="nav-title">
-            준자혁지
+            Cada Schedule
         </div>
         <div class="nav-menu">
             <button type="button" class="menu-button" onclick="location.href='/'">Home</button>
@@ -70,6 +70,9 @@
                     <legend>가능한 일정</legend>
                     <% for(let i=0; i<period.length; i++) { %>
                         <input type="text" value="<%=period[i][0]%> ~ <%=period[i][1]%>">
+                    <% } %>
+                    <% if(period.length == 0) { %>
+                        <input type="text" value="가능한 일정이 없습니다.">
                     <% } %>
                 </fieldset>
             </div>
