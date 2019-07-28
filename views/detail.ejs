@@ -79,6 +79,8 @@
 <script>
     document.getElementById('periodStart').valueAsDate = new Date('<%= schedule.StartPeriod %>');
     document.getElementById('periodEnd').valueAsDate = new Date('<%= schedule.EndPeriod %>');
+    if('<%= create %>' == 'true')
+        alert('나의 일정을 등록하였습니다.');
 </script>
 <script type="text/javascript" src="/script/detail.js"></script>
 </html>
