@@ -11,79 +11,45 @@ Date.prototype.convertDateFormat = function() {
            ].join('-');
 };
 
+// arrayDate[0]: 일정의 전체기간. arrayDate[1~N]: 불가능한 기간
 function mergeDate(arrayDate, inputDate) {
-    for(let i=0; i<arrayDate.length; i++) {
-        if(inputDate.flag == false) {
-            if(arrayDate[i][0] < inputDate.start && arrayDate[i][1] >= inputDate.start) {
-                if(arrayDate[i][1] <= inputDate.end) {
-                    let date = new Date(inputDate.start);
-                    date.setDate(date.getDate()-1);
-                    arrayDate[i][1] = date.convertDateFormat();
-                }
-                else {
-                    let date = new Date(inputDate.end);
-                    date.setDate(date.getDate()+1);
-                    arrayDate.push([date.convertDateFormat(), arrayDate[i][1]]);
-
-                    date = new Date(inputDate.start);
-                    date.setDate(date.getDate()-1);
-                    arrayDate[i][1] = date.convertDateFormat();
-                }
-            }
-            else if(arrayDate[i][0] >= inputDate.start) {
-                if(arrayDate[i][1] <= inputDate.end) {
-                    arrayDate.splice(i--, 1);
-                }
-                else {
-                    let date = new Date(inputDate.end);
-                    date.setDate(date.getDate()+1);
-                    arrayDate[i][0] = date.convertDateFormat();
-                }
-            }
+    let adjustedPeriod = [];
+    if(inputDate.flag == true) {
+        if(arrayDate[0] < inputDate.start) {
+            let leftDate = new Date(inputDate.start);
+            leftDate.setDate(leftDate.getDate()-1);
+            adjustedPeriod.push({
+                period: [arrayDate[0], leftDate.toISOString()],
+                creator: inputDate.creator
+            });
         }
-        else {
-            if(arrayDate[i][0] <= inputDate.start) {
-                if(arrayDate[i][1] < inputDate.start) {
-                    arrayDate.splice(i--, 1);
-                }
-                else if(arrayDate[i][1] <= inputDate.end) {
-                    arrayDate[i][0] = inputDate.start;
-                }
-                else {
-                    arrayDate[i][0] = inputDate.start;
-                    arrayDate[i][1] = inputDate.end;
-                }
-            }
-            else {
-                if(arrayDate[i][0] > inputDate.end) {
-                    arrayDate.splice(i--, 1);
-                }
-                else if(arrayDate[i][1] > inputDate.end) {
-                    arrayDate[i][1] = inputDate.end;
-                }   
-            }
+        if(arrayDate[1] > inputDate.end) {
+            let rightDate = new Date(inputDate.end);
+            rightDate.setDate(rightDate.getDate()+1);
+            adjustedPeriod.push({
+                period: [rightDate.toISOString(), arrayDate[1]],
+                creator: inputDate.creator
+            });
         }
     }
+    else {
+        adjustedPeriod = {
+            period: [inputDate.start, inputDate.end],
+            creator: inputDate.creator
+        };
+    }
+    return adjustedPeriod;
 }
 
 module.exports = {
     detailSchedule: async (req, res, next) => {
         const create = req.session.create;
-        req.session.destroy();
+        req.session.create = false;
         try {
-            const periodResults = await Period.find({Schedule:req.params.id});
             const scheduleResult = await Schedule.findById(req.params.id);
-            const InitialStart = new Date(scheduleResult.StartPeriod).convertDateFormat();
-            const InitialEnd = new Date(scheduleResult.EndPeriod).convertDateFormat();
-            let period = [[InitialStart, InitialEnd]];
-            periodResults.forEach(periodResult => {
-                mergeDate(period, {
-                    start: periodResult.StartPeriod.convertDateFormat(),
-                    end: periodResult.EndPeriod.convertDateFormat(),
-                    flag: periodResult.isAvailablePeriod
-                });
-            });
-            res.render('detail.ejs', {schedule: scheduleResult, period: period, scheduleId: req.params.id, create: create});
+            req.session.start = scheduleResult.StartPeriod;
+            req.session.end = scheduleResult.EndPeriod;
+            res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create});
         }
         catch(err) {
             console.error(err);
@@ -104,7 +70,23 @@ module.exports = {
         res.redirect('/schedule/' + req.body.scheduleId);      
     },
 
-    printSchedule: (req, res, next) => {
-        res.render('canlendar.ejs');
+    printSchedule: async (req, res, next) => {
+        if(req.session.start == null || req.session.end == null) {
+            res.redirect('/');
+        }
+        else {
+            const periodResults = await Period.find({Schedule:req.params.id});
+            let period = [];
+            periodResults.forEach(periodResult => {
+                const inputPeriod = {
+                    start: periodResult.StartPeriod.toISOString(),
+                    end: periodResult.EndPeriod.toISOString(),
+                    flag: periodResult.isAvailablePeriod,
+                    creator: periodResult.Creator
+                };
+                period = period.concat(mergeDate([req.session.start, req.session.end], inputPeriod));
+            });
+            res.render('canlendar.ejs', {period: period});
+        }
     }
 }
