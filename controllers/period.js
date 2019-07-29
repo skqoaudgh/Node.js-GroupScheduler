@@ -8,7 +8,7 @@ Date.prototype.convertDateFormat = function() {
     return [this.getFullYear(),
             (mm>9 ? '' : '0') + mm,
             (dd>9 ? '' : '0') + dd
-           ].join('.');
+           ].join('-');
 };
 
 function mergeDate(arrayDate, inputDate) {
@@ -102,5 +102,9 @@ module.exports = {
         await period.save();
         req.session.create = true;
         res.redirect('/schedule/' + req.body.scheduleId);      
+    },
+
+    printSchedule: (req, res, next) => {
+        res.render('canlendar.ejs');
     }
 }

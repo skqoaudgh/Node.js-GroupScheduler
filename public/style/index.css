@@ -1,4 +1,4 @@
-table {
+#schedule-list {
     width: 800px;
     padding: 0;
     margin-top: 50px;
@@ -6,18 +6,18 @@ table {
     border-collapse: collapse;
 }
 
-tr {
+.schedule-li {
     cursor: pointer;
     border-bottom: 1px solid #d69630;
 }
 
-th {
+.schedule-head {
     background: #d69630;
     color: white;
     padding: 10px 20px 10px 20px;
 }
 
-td {
+.schedule-item {
     text-align: center;
     padding: 10px;
     font-size: 20px;

@@ -24,28 +24,6 @@ function pad(n) {
     return n.length >= 2 ? n : new Array(3 - n.length).join('0') + n;
 }
 
-// schedule
-function addScheduleOnCalendar(year, month) {
-    const scheduleWrapper = document.getElementsByClassName('schedule-wrapper');
-    schedule.forEach(element => {
-        let startPeriod = new Date(element.StartPeriod);
-        
-        let scheduleYear = startPeriod.getFullYear();
-        let scheduleMonth = startPeriod.getMonth();
-        let scheduleDate = startPeriod.getDate();
-
-        if(year != scheduleYear || month != scheduleMonth) 
-            return;
-
-        const str = `<div 
-                        class="schedule-item" 
-                        style="background-color:${element.Color}; cursor:pointer;" 
-                        onclick="window.location='/schedule/${element._id}'">
-                    </div>`
-        scheduleWrapper[scheduleDate-1].innerHTML += str;
-    });
-}
-
 // calendar
 function drawCalendar(month) {
     Calendar.setDate(1);
@@ -96,8 +74,6 @@ function drawCalendar(month) {
     
     wrapper.innerHTML = element;
     addEventListenerOnButton();
-
-    addScheduleOnCalendar(year ,month);
 }
 
 // event

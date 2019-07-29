@@ -65,16 +65,8 @@
                     </fieldset>
                 </form>
             </div>
-            <div class="period">
-                <fieldset>
-                    <legend>가능한 일정</legend>
-                    <% for(let i=0; i<period.length; i++) { %>
-                        <input type="text" value="<%=period[i][0]%> ~ <%=period[i][1]%>">
-                    <% } %>
-                    <% if(period.length == 0) { %>
-                        <input type="text" value="가능한 일정이 없습니다.">
-                    <% } %>
-                </fieldset>
+            <div>
+                <button id="calendarBtn" onclick="window.location='/schedule/calendar/<%= schedule.id %>'">달력보기</button>
             </div>
         </div>
     </section>

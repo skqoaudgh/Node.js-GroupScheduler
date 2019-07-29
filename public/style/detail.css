@@ -51,8 +51,20 @@ button {
     margin-top: 50px;
     border: 2px solid #ff4f4f;
     border-radius: 15px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+}
+
+#calendarBtn {
+    width: 360px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+button:hover,
+#calendarBtn:hover {
+    color: white;
+    background: #ff4f4f;
 }

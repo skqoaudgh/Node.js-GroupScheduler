@@ -43,6 +43,7 @@ app.get('/create', (req, res, next) => {
     res.render('create.ejs');
 });
 app.post('/create', upload.array('image'), scheduleController.createSchedule);
+app.get('/schedule/calendar/:id', periodController.printSchedule);
 app.get('/schedule/:id', periodController.detailSchedule);
 app.post('/detail', periodController.createPeriod);
 
