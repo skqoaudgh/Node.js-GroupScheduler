@@ -7,7 +7,7 @@ function validateForm() {
     const myEnd = document.forms['Form']['myEnd'].value;
     const periodStart = document.getElementById('periodStart').value;
     const periodEnd = document.getElementById('periodEnd').value;
-    const today = new Date().yyyymmdd();
+    const today = new Date().convertDateFormat();
     if(name == null || name == '' || myStart == null || myStart == '' || myEnd == null || myEnd == '') {
         alert('모든 항목을 채워주세요.');
         return false;
@@ -23,7 +23,7 @@ function validateForm() {
     }
 }
 
-Date.prototype.yyyymmdd = function() {
+Date.prototype.convertDateFormat = function() {
   var mm = this.getMonth() + 1;
   var dd = this.getDate();
 
