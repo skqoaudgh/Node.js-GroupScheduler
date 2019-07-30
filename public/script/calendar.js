@@ -35,8 +35,9 @@ function drawCalendar(month) {
     element += '<button type="button" class="monthButton">R</button>';
     element += '<button type="button" class="monthButton"><</button>';
     element += year + '.' + pad(month+1);
-    element += '<button type="button" class="monthButton">></button></td></tr>'
-
+    element += '<button type="button" class="monthButton">></button>'
+    element += `${schedule.Creator}의 ${schedule.Title} 달력</td></tr>`
+    
     element += '<tr>'
     for(i=0; i<DAYS_OF_WEEK; i++) {
         if(i == 0 || i == 6)

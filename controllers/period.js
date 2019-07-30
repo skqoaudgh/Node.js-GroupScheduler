@@ -47,8 +47,7 @@ module.exports = {
         req.session.create = false;
         try {
             const scheduleResult = await Schedule.findById(req.params.id);
-            req.session.start = scheduleResult.StartPeriod;
-            req.session.end = scheduleResult.EndPeriod;
+            req.session.schedule = scheduleResult;
             res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create});
         }
         catch(err) {
@@ -71,7 +70,7 @@ module.exports = {
     },
 
     printSchedule: async (req, res, next) => {
-        if(req.session.start == null || req.session.end == null) {
+        if(req.session.schedule.StartPeriod == null || req.session.schedule.EndPeriod == null) {
             res.redirect('/');
         }
         else {
@@ -84,9 +83,9 @@ module.exports = {
                     flag: periodResult.isAvailablePeriod,
                     creator: periodResult.Creator
                 };
-                period = period.concat(mergeDate([req.session.start, req.session.end], inputPeriod));
+                period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
             });
-            res.render('canlendar.ejs', {userPeriod: period});
+            res.render('canlendar.ejs', {schedule: req.session.schedule, userPeriod: period});
         }
     }
 }
