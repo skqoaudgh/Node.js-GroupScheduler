@@ -33,6 +33,10 @@
     color: white;
 }
 
+#create-form textarea {
+    resize: none;
+}
+
 #create-form input::placeholder, textarea::placeholder {
     color: grey;
 }
