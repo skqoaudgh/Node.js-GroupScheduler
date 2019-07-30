@@ -1,0 +1,38 @@
+input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+
+.radio-group label {
+    color: #455fa8;
+    display: inline-block;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 20px;
+}
+
+.radio-group input[type=radio]:checked + label{
+    color: white;
+    background: #455fa8;
+}
+
+.radio-group label + input[type=radio] + label {
+    border-left: 3px solid #455fa8;
+}
+
+.radio-wrapper {
+    width: 410px;
+    text-align: center;
+}
+
+.radio-group {
+    border: 3px solid #455fa8;
+    display: inline-block;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 40px;
+    text-align: center;
+    line-height: 30px;
+}

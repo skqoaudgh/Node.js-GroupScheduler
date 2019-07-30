@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+body {
+  background: #332f35;
+  font-family: roboto;
+}
+
+input[type=radio] {
+  position: absolute;
+  visibility: hidden;
+  display: none;
+}
+
+label {
+  color: #7e7e7e;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 20px;
+}
+
+input[type=radio]:checked + label{
+  color: white;
+  background: #7e7e7e;
+}
+
+label + input[type=radio] + label {
+  border-left: solid 3px #7e7e7e;
+}
+.radio-group {
+  border: solid 3px white;
+  display: inline-block;
+  margin: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="radio-group">
+        <input type="radio" id="option-one" name="selector"><label for="option-one">Available Period</label><input type="radio" id="option-two" name="selector"><label for="option-two">Unavailable Period</label>
+    </div>
+</body>
+</html>
