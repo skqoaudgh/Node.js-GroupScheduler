@@ -60,9 +60,9 @@ function drawCalendar(month) {
             if(week_day != DAYS_OF_WEEK) {
                 let day  = Calendar.getDate();
                 if(today_year == Calendar.getFullYear() && today_month == Calendar.getMonth() && today_day == Calendar.getDate())
-                    element += '<td id="calendar-today" class="calendar-day">' + day + '<div class="schedule-wrapper"></div>' + '</td>' + '</td>';
+                    element += '<td id="calendar-today" class="calendar-day">' + day + '<div class="dropdown"><div class="period-wrapper"></div><div class="creator-wrapper"></div></div>' + '</td>' + '</td>';
                 else
-                    element += '<td class="calendar-day">' + day + '<div class="schedule-wrapper"></div>' + '</td>';
+                    element += '<td class="calendar-day">' + day + '<div class="dropdown"><div class="period-wrapper"></div><div class="creator-wrapper"></div></div>' + '</td>';
             }
         if(week_day == DAYS_OF_WEEK)
             element += '</tr>';
@@ -73,7 +73,24 @@ function drawCalendar(month) {
     element += '</table>'
     
     wrapper.innerHTML = element;
+    addPeriodOnSchedule(year, month);
     addEventListenerOnButton();
+}
+
+// period
+function addPeriodOnSchedule(year, month) {
+    const periodWrapper = document.getElementsByClassName('period-wrapper');
+    const creatorWrapper = document.getElementsByClassName('creator-wrapper');
+    for(let i=0; i<userPeriod.length; i++) {
+        console.log(userPeriod[i]);
+        let start = new Date(userPeriod[i].period[0]);
+        const end = new Date(userPeriod[i].period[1]);
+        while(start.getFullYear() == year && start.getMonth() == month && start.valueOf() <= end.valueOf()) {
+            periodWrapper[start.getDate()-1].innerHTML += '<hr class="period-item">';
+            creatorWrapper[start.getDate()-1].innerHTML += `<span>${userPeriod[i].creator}</span>`;
+            start.setDate(start.getDate()+1);
+        }
+    }
 }
 
 // event

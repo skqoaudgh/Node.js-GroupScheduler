@@ -86,7 +86,7 @@ module.exports = {
                 };
                 period = period.concat(mergeDate([req.session.start, req.session.end], inputPeriod));
             });
-            res.render('canlendar.ejs', {period: period});
+            res.render('canlendar.ejs', {userPeriod: period});
         }
     }
 }
