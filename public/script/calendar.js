@@ -1,7 +1,10 @@
-let wrapper = document.getElementById('calendar-wrapper');
+let wrapper = document.getElementById('calendar');
+let calendarTitle = document.getElementById('title');
+let calendarButton = document.getElementsByClassName('calendar-day');
+let dropdown = document.getElementsByClassName('dropdown');
 
 let element;
-let day = new Array('일', '월', '화', '수', '목', '금', '토');
+const day = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
 
 let Calendar = new Date();
 let year = Calendar.getFullYear();     // Returns year
@@ -17,11 +20,19 @@ let DAYS_OF_WEEK = 7;
 let DAYS_OF_MONTH = 31;
 
 drawCalendar(month);
+calendarTitle.innerHTML = `${schedule.Creator}의 ${schedule.Title} 달력`
 
 // util
 function pad(n) {
     n = n + '';
     return n.length >= 2 ? n : new Array(3 - n.length).join('0') + n;
+}
+
+function isNumber(s) {
+    s += '';
+    s = s.replace(/^\s*|\s*$/g, '');
+    if (s == '' || isNaN(s)) return false;
+    return true;
 }
 
 // calendar
@@ -34,22 +45,18 @@ function drawCalendar(month) {
     element += '<tr><td colspan=7 class="calendar-top">';
     element += '<button type="button" class="monthButton">R</button>';
     element += '<button type="button" class="monthButton"><</button>';
-    element += year + '.' + pad(month+1);
-    element += '<button type="button" class="monthButton">></button>'
-    element += `${schedule.Creator}의 ${schedule.Title} 달력</td></tr>`
+    element += `<span id="calendar-date">${year}.${pad(month+1)}</span>`;
+    element += '<button type="button" class="monthButton">></button></td></tr>'
     
     element += '<tr>'
     for(i=0; i<DAYS_OF_WEEK; i++) {
-        if(i == 0 || i == 6)
-            element += '<td class="calendar-week calendar-weekend">' + day[i] + '</td>';
-        else
-            element += '<td class="calendar-week">' + day[i] + '</td>';
+        element += '<td class="calendar-week">' + day[i] + '</td>';
     }
     element += '</tr>';
     
     element += '<tr>';
     for(i=0; i<Calendar.getDay(); i++)
-        element += '<td class="calendar-day">-</td>';
+        element += '<td>&nbsp;</td>';
     
     for(let i=0; i<DAYS_OF_MONTH; i++) {
         if(Calendar.getDate() > i) {
@@ -61,9 +68,9 @@ function drawCalendar(month) {
             if(week_day != DAYS_OF_WEEK) {
                 let day  = Calendar.getDate();
                 if(today_year == Calendar.getFullYear() && today_month == Calendar.getMonth() && today_day == Calendar.getDate())
-                    element += '<td id="calendar-today" class="calendar-day">' + day + '<div class="dropdown"><div class="period-wrapper"></div><div class="creator-wrapper"></div></div>' + '</td>' + '</td>';
+                    element += `<td id="calendar-today" class="calendar-day"><div class="dropdown"><div class="dropdown-value">${day}</div><div class="creator-wrapper"></div></td>`
                 else
-                    element += '<td class="calendar-day">' + day + '<div class="dropdown"><div class="period-wrapper"></div><div class="creator-wrapper"></div></div>' + '</td>';
+                    element += `<td class="calendar-day"><div class="dropdown"><div class="dropdown-value">${day}</div><div class="creator-wrapper"></div></td>`
             }
         if(week_day == DAYS_OF_WEEK)
             element += '</tr>';
@@ -80,14 +87,13 @@ function drawCalendar(month) {
 
 // period
 function addPeriodOnSchedule(year, month) {
-    const periodWrapper = document.getElementsByClassName('period-wrapper');
     const creatorWrapper = document.getElementsByClassName('creator-wrapper');
     for(let i=0; i<userPeriod.length; i++) {
-        console.log(userPeriod[i]);
         let start = new Date(userPeriod[i].period[0]);
         const end = new Date(userPeriod[i].period[1]);
         while(start.getFullYear() == year && start.getMonth() == month && start.valueOf() <= end.valueOf()) {
-            periodWrapper[start.getDate()-1].innerHTML += '<hr class="period-item">';
+            calendarButton[start.getDate()-1].style.backgroundColor = '#ff5252';
+            calendarButton[start.getDate()-1].style.cursor = 'pointer';
             creatorWrapper[start.getDate()-1].innerHTML += `<span>${userPeriod[i].creator}</span>`;
             start.setDate(start.getDate()+1);
         }
@@ -95,12 +101,11 @@ function addPeriodOnSchedule(year, month) {
 }
 
 // event
-const calendarButton = document.getElementsByClassName('calendar-day');
-for(let i=0; i<calendarButton.length; i++) {
-    addEventListener('click', (event) => {
-
-    });
+for(let i=0; i<dropdown.length; i++) {
+    dropdown[i].addEventListener('mouseover', mouseOverHandler);
+    dropdown[i].addEventListener('mouseout', mouseOutHandler);
 }
+
 
 function addEventListenerOnButton() {
     const monthButton = document.getElementsByClassName('monthButton');
@@ -126,4 +131,14 @@ function addEventListenerOnButton() {
         }
         drawCalendar(month);
     });
+}
+
+function mouseOverHandler(event) {
+    if(isNumber(event.target.innerHTML))
+        calendarButton[event.target.innerHTML-1].style.backgroundColor = '#ff0000';
+}
+
+function mouseOutHandler(event) {
+    if(isNumber(event.target.innerHTML))
+        calendarButton[event.target.innerHTML-1].style.backgroundColor = '#ff5252';
 }
