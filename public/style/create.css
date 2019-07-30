@@ -1,41 +1,104 @@
 #create-form {
     width: 500px;
-    margin-top: 50px;
+    margin-top: 10px;
     clear: both;
 }
 
-fieldset {
-    padding: 20px;
+#form-comment {
+    text-align: left;
+    color: white;
+}
+
+#form-comment h1 {
+    font-size: 30px;
+    margin-bottom: 0;
+}
+
+#form-comment h2 {
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 #create-form input, textarea {
     width: 500px;
     margin-bottom: 15px;
-    padding: 5px;
+    padding: 12px 20px 12px 20px;
     clear: both;
     outline: none;
     font-size: 16px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 20px;
+    background: #455fa8;
+    color: white;
 }
 
-label {
-    font-weight: bold;
-    font-size: 20px;
+#create-form input::placeholder, textarea::placeholder {
+    color: grey;
+}
+
+#inputFile #fileTitle {
+    border: none;
+    width: 200px;
+    height: 28px;
+    margin: 0;
+    padding: 12px 20px 12px 20px;
+    font-size: 16px;
+    font-weight: initial;
+    line-height: 28px;
+}
+
+#inputFile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    width: 540px;
+    height: 46px;
+    background: #455fa8;
+    border-radius: 20px;
+}
+
+#inputFile label {
+    display: inline-block; 
+    padding: .5em .75em;
+    width: 100px;
+    color: white;
+    font-size: inherit; 
+    line-height: normal; 
+    vertical-align: middle; 
+    background: #455fa8; 
+    cursor: pointer; 
+    border-radius: 20px;
+    text-align: center;
+}
+
+#inputFile input[type="file"] { 
+    position: absolute; 
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
+    overflow: hidden; 
+    clip:rect(0,0,0,0); 
+    border: 0; 
 }
 
 #create-submit {
     all: unset;
-    width: 80px;
-    height: 30px;
+    width: 160px;
+    height: 40px;
     margin-top: 50px;
-    border: 2px solid #ff4f4f;
-    border-radius: 15px;
-    font-size: 22px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 18px;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    color: white;
 }
 
 #create-submit:hover {
-    color: white;
-    background: #ff4f4f;
+    color: #6c93ff;
+    background: white;
 }

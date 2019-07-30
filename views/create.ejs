@@ -20,46 +20,25 @@
     </header>
     <section class="main">
         <div id="create-form">
+            <div id="form-comment">
+                <h1>Create Schedule</h1>
+                <h2>and share this schedule to set up a schedule!</h2>
+            </div>
             <form method="POST" action="/create" name="Form" enctype="multipart/form-data" onsubmit="return validateForm()">
-                <fieldset>
-                    <legend>일정 만들기</legend>
-                    <label for="name">작성자이름</label>
-                    <input type="text" name="name" id="create-name" autocomplete="off">
-                    <label for="title">일정이름</label>
-                    <input type="text" name="title" id="create-title" autocomplete="off">
-                    <label for="periodStart">시작날짜</label>
-                    <input type="date" name="periodStart" id="create-start">
-                    <label for="periodEnd">마감날짜</label>
-                    <input type="date" name="periodEnd" id="create-end">
-                    <label for="comment">설명</label>
-                    <textarea rows="5" name="comment" id="create-comment"></textarea>
-                    <label for="image">첨부자료</label>
+                <input type="text" name="name" id="create-name" placeholder="Name" autocomplete="off">
+                <input type="text" name="title" id="create-title" placeholder="Title" autocomplete="off">
+                <input type="date" name="periodStart" id="create-start">
+                <input type="date" name="periodEnd" id="create-end" placeholder="date">
+                <textarea rows="5" name="comment" id="create-comment" placeholder="Comment"></textarea>
+                <div id="inputFile">
+                    <p id="fileTitle"></p>
+                    <label for="create-image">Upload</label>
                     <input type="file" name="image" id="create-image" accept="image/*" multiple>
-                    <button id="create-submit">확인</button>
-                </fieldset>
+                </div>
+                <button id="create-submit">submit</button>
             </form>
         </div>
     </section>
 </body>
-<script>
-    const periodStart = document.getElementById('create-start');
-    periodStart.valueAsDate = new Date();
-
-    function validateForm() {
-        const name = document.forms['Form']['name'].value;
-        const periodStart = document.forms['Form']['periodStart'].value;
-        const periodEnd = document.forms['Form']['periodEnd'].value;
-        const comment = document.forms['Form']['comment'].value;
-
-        if(name == null || name == '' || periodStart == null || periodStart == '' 
-        || periodEnd == null || periodEnd == '' || comment == null || comment == '') {
-            alert('모든 항목을 채워주세요.');
-            return false;
-        }
-        if(periodStart > periodEnd) {
-            alert('시작날짜와 마감날짜가 잘못 입력되었습니다.');
-            return false;
-        }
-    }
-</script>
+<script type="text/javascript" src="/script/create.js"></script>
 </html>
