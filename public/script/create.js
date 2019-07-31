@@ -7,11 +7,12 @@ inputFile.addEventListener('change', fileUploadHandler);
 
 function validateForm() {
     const name = document.forms['Form']['name'].value;
+    const title = document.forms['Form']['title'].value;
     const periodStart = document.forms['Form']['periodStart'].value;
     const periodEnd = document.forms['Form']['periodEnd'].value;
     const comment = document.forms['Form']['comment'].value;
 
-    if(name == null || name == '' || periodStart == null || periodStart == '' 
+    if(title == null || title == '' || name == null || name == '' || periodStart == null || periodStart == '' 
     || periodEnd == null || periodEnd == '' || comment == null || comment == '') {
         alert('모든 항목을 채워주세요.');
         return false;

@@ -19,7 +19,7 @@ Date.prototype.convertDateFormat = function() {
 schedule.forEach(element => {
     const start = new Date(element.StartPeriod).convertDateFormat();
     const end = new Date(element.EndPeriod).convertDateFormat();
-    content += `<tr class="schedule-li" onclick="window.location='/schedule/${element._id}'">
+    content += `<tr class="schedule-li" onclick="window.location='/auth/${element._id}'">
                     <td class="schedule-item">${element.Title}</td>
                     <td class="schedule-item">${start} ~ ${end}</td>
                     <td class="schedule-item">${element.Creator}</td>

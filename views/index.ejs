@@ -31,7 +31,7 @@
     var schedule = <%- JSON.stringify(schedule) %>
     
     if('<%= create %>' == 'true')
-        alert('일정을 등록하였습니다.');
+        alert('일정이 등록되었습니다.\n접근을 위한 보안 코드는 [<%= code %>]입니다. 꼭 기억해주세요!');
 </script>
 <script type="text/javascript" src="script/index.js"></script>
 </html>

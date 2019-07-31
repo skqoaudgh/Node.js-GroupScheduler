@@ -35,16 +35,19 @@ const upload = multer({
 app.get('/', async (req, res, next) => {
     const schedule = await scheduleController.getSchedules();
     const create = req.session.create;
+    const code = req.session.code;
     req.session.destroy();
-    res.render('index.ejs', {schedule: schedule, create: create});
+    res.render('index.ejs', {schedule: schedule, create: create, code: code});
 });
 
 app.get('/create', (req, res, next) => {
     res.render('create.ejs');
 });
 app.post('/create', upload.array('image'), scheduleController.createSchedule);
+app.post('/schedule', scheduleController.postAuthSchedule);
 app.get('/schedule/calendar/:id', periodController.printSchedule);
 app.get('/schedule/:id', periodController.detailSchedule);
+app.get('/auth/:id', scheduleController.getAuthSchedule);
 app.post('/detail', periodController.createPeriod);
 
 mongoose.connect(`mongodb+srv://${'Cada'}:${'asd123'}@node-rest-shop-zqnku.mongodb.net/${'GroupScheduler'}?retryWrites=true&w=majority`, {

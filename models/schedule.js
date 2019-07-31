@@ -26,7 +26,7 @@ const ScheduleSchema = new Schema({
         type: String,
         required: false
     }],
-    Color: {
+    AuthCode: {
         type: String,
         required: true
     }
