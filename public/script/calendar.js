@@ -133,12 +133,14 @@ function addEventListenerOnButton() {
     });
 }
 
+
+
 function mouseOverHandler(event) {
-    if(isNumber(event.target.innerHTML))
+    if(isNumber(event.target.innerHTML) && calendarButton[event.target.innerHTML-1].style.backgroundColor == '#ff5252')
         calendarButton[event.target.innerHTML-1].style.backgroundColor = '#ff0000';
 }
 
 function mouseOutHandler(event) {
-    if(isNumber(event.target.innerHTML))
+    if(isNumber(event.target.innerHTML) && calendarButton[event.target.innerHTML-1].style.backgroundColor == '#ff0000')
         calendarButton[event.target.innerHTML-1].style.backgroundColor = '#ff5252';
 }
