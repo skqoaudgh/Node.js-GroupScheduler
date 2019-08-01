@@ -61,7 +61,7 @@ module.exports = {
         if(inputCode == authCode) {
             const scheduleResult = await Schedule.findById(req.body.scheduleId);
             req.session.schedule = scheduleResult;
-            period.printSchedule(req, res, next);
+            res.redirect('/schedule/' + scheduleId);
         }
         else {
             res.render('auth.ejs', {authCode: authCode, scheduleId: scheduleId, isFail: true});
