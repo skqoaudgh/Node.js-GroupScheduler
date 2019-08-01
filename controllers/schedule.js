@@ -11,7 +11,7 @@ function getRandomColor() {
 module.exports = {
     getSchedules: async () => {
         try {
-            let result = await Schedule.find();
+            let result = await Schedule.find().sort({ StartPeriod: 1 });
             return result;
         }
         catch(err) {
