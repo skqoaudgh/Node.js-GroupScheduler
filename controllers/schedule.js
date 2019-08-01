@@ -61,6 +61,7 @@ module.exports = {
         if(inputCode == authCode) {
             const scheduleResult = await Schedule.findById(req.body.scheduleId);
             req.session.schedule = scheduleResult;
+            req.session.auth = true;
             res.redirect('/schedule/' + scheduleId);
         }
         else {

@@ -44,14 +44,21 @@ function mergeDate(arrayDate, inputDate) {
 module.exports = {
     detailSchedule: async (req, res, next) => {
         const create = req.session.create;
+        const auth = req.session.auth;
         req.session.create = false;
-        try {
-            const scheduleResult = await Schedule.findById(req.params.id);
-            req.session.schedule = scheduleResult;
-            res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create});
+        req.session.auth = false;
+        if(auth) {
+            try {
+                const scheduleResult = await Schedule.findById(req.params.id);
+                req.session.schedule = scheduleResult;
+                res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create});
+            }
+            catch(err) {
+                console.error(err);
+            }
         }
-        catch(err) {
-            console.error(err);
+        else {
+            res.redirect('/');
         }
     },
 
@@ -70,7 +77,7 @@ module.exports = {
     },
 
     printSchedule: async (req, res, next) => {
-        if(req.session.schedule.StartPeriod == null || req.session.schedule.EndPeriod == null) {
+        if(req.session.schedule == null) {
             res.redirect('/');
         }
         else {
