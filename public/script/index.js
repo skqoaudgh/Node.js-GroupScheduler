@@ -26,4 +26,8 @@ schedule.forEach(element => {
                 </tr>`
 });
 
+if(schedule.length == 0) {
+    content = '<tr><th style="padding: 10px; font-size: 20px; color: #666666;">확인할 수 있는 일정이 없습니다. 일정을 만들어보세요!</th></tr>';
+}
+
 list.innerHTML = content;
