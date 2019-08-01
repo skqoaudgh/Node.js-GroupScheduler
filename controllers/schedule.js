@@ -46,6 +46,7 @@ module.exports = {
 
     getAuthSchedule: async (req, res, next) => {
         try {
+            req.session.auth = false;
             const result = await Schedule.findById(req.params.id, 'AuthCode');
             res.render('auth.ejs', {authCode: result.AuthCode, scheduleId: req.params.id, isFail: false});
         }

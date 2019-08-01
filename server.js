@@ -41,6 +41,8 @@ app.get('/', async (req, res, next) => {
 });
 
 app.get('/create', (req, res, next) => {
+    req.session.auth = false;
+    req.session.create = false;
     res.render('create.ejs');
 });
 app.post('/create', upload.array('image'), scheduleController.createSchedule);

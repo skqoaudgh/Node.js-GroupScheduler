@@ -46,7 +46,6 @@ module.exports = {
         const create = req.session.create;
         const auth = req.session.auth;
         req.session.create = false;
-        req.session.auth = false;
         if(auth) {
             try {
                 const scheduleResult = await Schedule.findById(req.params.id);
