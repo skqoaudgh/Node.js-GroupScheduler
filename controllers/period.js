@@ -57,7 +57,7 @@ module.exports = {
             }
         }
         else {
-            res.redirect('/');
+            res.redirect('/auth/' + req.params.id);
         }
     },
 
