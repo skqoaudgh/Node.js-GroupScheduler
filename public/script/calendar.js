@@ -43,10 +43,10 @@ function drawCalendar(month) {
     element = '<table class="calendar">';
 
     element += '<tr><td colspan=7 class="calendar-top">';
-    element += '<button type="button" class="monthButton">R</button>';
+    element += '<div id="top-wrapper"><button type="button" class="monthButton" id="resetBtn">R</button>';
     element += '<button type="button" class="monthButton"><</button>';
     element += `<span id="calendar-date">${year}.${pad(month+1)}</span>`;
-    element += '<button type="button" class="monthButton">></button></td></tr>'
+    element += '<button type="button" class="monthButton">></button></div></td></tr>'
     
     element += '<tr>'
     for(i=0; i<DAYS_OF_WEEK; i++) {
@@ -93,7 +93,6 @@ function addPeriodOnSchedule(year, month) {
         const end = new Date(userPeriod[i].period[1]);
         while(start.getFullYear() == year && start.getMonth() == month && start.valueOf() <= end.valueOf()) {
             calendarButton[start.getDate()-1].style.backgroundColor = '#ff5252';
-            calendarButton[start.getDate()-1].style.cursor = 'pointer';
             creatorWrapper[start.getDate()-1].innerHTML += `<span>${userPeriod[i].creator}</span>`;
             start.setDate(start.getDate()+1);
         }

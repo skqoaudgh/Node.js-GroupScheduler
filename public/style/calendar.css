@@ -42,7 +42,8 @@
 }
 
 #calendar-today .dropdown-value {
-    color: white;
+    color: #6c93ff;
+    font-weight: bold;
 }
 
 .monthButton {
@@ -54,6 +55,11 @@
     color: white;
     text-align: center;
     line-height: 24px;
+}
+
+#top-wrapper {
+    position: relative;
+    left: -24px;
 }
 
 #calendar-date {
