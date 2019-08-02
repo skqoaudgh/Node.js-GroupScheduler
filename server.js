@@ -51,7 +51,6 @@ app.get('/schedule/calendar/:id', periodController.printSchedule);
 app.get('/schedule/:id', periodController.detailSchedule);
 app.get('/auth/:id', scheduleController.getAuthSchedule);
 app.post('/detail', periodController.createPeriod);
-
 mongoose.connect(`mongodb+srv://${'Cada'}:${'asd123'}@node-rest-shop-zqnku.mongodb.net/${'GroupScheduler'}?retryWrites=true&w=majority`, {
     useNewUrlParser: true
 })

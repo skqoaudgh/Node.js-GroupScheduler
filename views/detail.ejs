@@ -72,14 +72,28 @@
                     </div>
                 </form>
             </div>
+            <input type="text" id="shareURL" value="<%= schedule.ShareURL %>" style="display: none">
+            <button type="button" id="shareBtn">Share</button>
         </div>
     </section>
 </body>
 <script>
     document.getElementById('periodStart').valueAsDate = new Date('<%= schedule.StartPeriod %>');
     document.getElementById('periodEnd').valueAsDate = new Date('<%= schedule.EndPeriod %>');
+    const shareBtn = document.getElementById('shareBtn');
+    const shareURL = document.getElementById('shareURL');
+
     if('<%= create %>' == 'true')
         alert('나의 일정을 등록하였습니다.');
+
+    shareBtn.addEventListener('click', (event) => {
+        shareURL.style.display = 'block'
+        shareURL.select();
+        document.execCommand("copy");
+        shareURL.blur();
+        shareURL.style.display = 'none'
+        alert('공유 주소가 클립보드에 복사되었습니다.\n보안코드와 함께 공유하세요!');
+    });
 </script>
 <script type="text/javascript" src="/script/detail.js"></script>
 </html>

@@ -29,6 +29,10 @@ const ScheduleSchema = new Schema({
     AuthCode: {
         type: String,
         required: true
+    },
+    ShareURL: {
+        type: String,
+        required: true
     }
 });
 

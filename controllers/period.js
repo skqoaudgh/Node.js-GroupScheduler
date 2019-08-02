@@ -50,7 +50,7 @@ module.exports = {
             try {
                 const scheduleResult = await Schedule.findById(req.params.id);
                 req.session.schedule = scheduleResult;
-                res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create});
+                res.render('detail.ejs', {schedule: scheduleResult, scheduleId: req.params.id, create: create, share: null});
             }
             catch(err) {
                 console.error(err);

@@ -1,11 +1,17 @@
 const Schedule = require('../models/schedule');
-const period = require('./period');
 
-function getRandomColor() {
-    var r = Math.floor(Math.random() * 256);
-    var g = Math.floor(Math.random() * 256);
-    var b = Math.floor(Math.random() * 256);
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
+async function shareSchedule(longUrl) {
+    const { BitlyClient } = require('bitly');
+    const bitly = new BitlyClient('b78666d63843962936f6cd9d545102a286659f68', {});
+
+    let result;
+    try {
+        result = await bitly.shorten(longUrl);
+    } 
+    catch (err) {
+        throw err;
+    }
+    return result.url;
 }
 
 module.exports = {
@@ -28,16 +34,21 @@ module.exports = {
             images.push(element.filename);
         });
 
+        let schedule = new Schedule();
+
         const code = Math.floor(Math.random() * 90000) + 10000;
-        let schedule = new Schedule({
-            Creator: req.body.name,
-            Title: req.body.title,
-            StartPeriod: req.body.periodStart,
-            EndPeriod: req.body.periodEnd,
-            Comment: req.body.comment,
-            Image: images,
-            AuthCode: code
-        });
+        const host = (req.get('host')=='localhost:3000')?('lvh.me:3000'):(req.get('host'));
+        const longUrl = req.protocol + '://' + host + '/schedule/' + schedule.id;
+        
+        schedule.Creator = req.body.name;
+        schedule.Title = req.body.title;
+        schedule.StartPeriod = req.body.periodStart;
+        schedule.EndPeriod = req.body.periodEnd;
+        schedule.Comment = req.body.comment;
+        schedule.Image = images;
+        schedule.AuthCode = code;
+        schedule.ShareURL = await shareSchedule(longUrl);
+
         await schedule.save();
         req.session.create = true;
         req.session.code = code;
