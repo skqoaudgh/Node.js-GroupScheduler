@@ -2,7 +2,7 @@ const Schedule = require('../models/schedule');
 
 async function shareSchedule(longUrl) {
     const { BitlyClient } = require('bitly');
-    const bitly = new BitlyClient('b78666d63843962936f6cd9d545102a286659f68', {});
+    const bitly = new BitlyClient(process.env.BITLY_API_KEY, {});
 
     let result;
     try {
