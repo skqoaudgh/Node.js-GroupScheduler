@@ -15,15 +15,10 @@ async function shareSchedule(longUrl) {
 }
 
 module.exports = {
-    getSchedules: async () => {
-        try {
-            let resultA = await Schedule.find({ EndPeriod: {$lt: new Date()} }).sort({ StartPeriod: 1 });
-            let resultB = await Schedule.find({ EndPeriod: {$gte: new Date()} }).sort({ StartPeriod: 1 });
-            return resultB.concat(resultA);
-        }
-        catch(err) {
-            console.error(err);
-        }
+    showCreatePage: (req, res, next) => {
+        req.session.auth = false;
+        req.session.create = false;
+        res.render('create.ejs');
     },
 
     createSchedule: async (req, res, next) => {

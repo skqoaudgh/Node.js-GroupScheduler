@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const multer = require('multer');
 
+const indexController = require('./controllers/index');
 const scheduleController = require('./controllers/schedule');
 const periodController = require('./controllers/period');
 
@@ -32,19 +33,8 @@ const upload = multer({
     })
 });
 
-app.get('/', async (req, res, next) => {
-    const schedule = await scheduleController.getSchedules();
-    const create = req.session.create;
-    const code = req.session.code;
-    req.session.destroy();
-    res.render('index.ejs', {schedule: schedule, create: create, code: code});
-});
-
-app.get('/create', (req, res, next) => {
-    req.session.auth = false;
-    req.session.create = false;
-    res.render('create.ejs');
-});
+app.get('/', indexController);
+app.get('/create', scheduleController.showCreatePage);
 app.post('/create', upload.array('image'), scheduleController.createSchedule);
 app.post('/schedule', scheduleController.postAuthSchedule);
 app.get('/schedule/calendar/:id', periodController.printSchedule);
