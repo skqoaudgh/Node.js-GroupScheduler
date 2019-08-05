@@ -33,3 +33,10 @@ tr:nth-child(even) {
 tr:nth-child(odd) { 
     background-color: #dfdfdf; 
 }
+
+.main > p > span {
+    color: #6c93ff;
+    padding: 0 10px 0 10px;
+    background: white;
+    border-radius: 30px;
+}
