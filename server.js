@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const multer = require('multer');
+const favicon = require('serve-favicon');
 
 const indexController = require('./controllers/index');
 const scheduleController = require('./controllers/schedule');
@@ -12,6 +13,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/schedule', express.static('uploads'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

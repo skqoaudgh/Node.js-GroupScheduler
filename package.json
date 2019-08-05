@@ -25,6 +25,7 @@
     "mongoose": "^5.6.6",
     "multer": "^1.4.2",
     "path": "^0.12.7",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "serve-favicon": "^2.5.0"
   }
 }
