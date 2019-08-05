@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const multer = require('multer');
 const favicon = require('serve-favicon');
+const compression = require('compression');
 
 const indexController = require('./controllers/index');
 const scheduleController = require('./controllers/schedule');
@@ -10,6 +11,7 @@ const periodController = require('./controllers/period');
 
 const app = express();
 
+app.use(compression());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use('/schedule', express.static('uploads'));
