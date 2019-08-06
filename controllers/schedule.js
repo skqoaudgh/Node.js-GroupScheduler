@@ -17,7 +17,6 @@ async function shareSchedule(longUrl) {
 module.exports = {
     showCreatePage: (req, res, next) => {
         req.session.auth = null;
-        req.session.create = false;
         res.render('create.ejs');
     },
 
@@ -46,8 +45,8 @@ module.exports = {
         schedule.ShareURL = await shareSchedule(longUrl);
 
         await schedule.save();
-        req.session.create = true;
-        req.session.code = code;
+        req.flash('create','true');
+        req.flash('code', code);
         res.redirect('/');
     },
 
@@ -67,8 +66,6 @@ module.exports = {
         const authCode = req.body.authCode;
         const scheduleId = req.body.scheduleId;
         if(inputCode == authCode) {
-            const scheduleResult = await Schedule.findById(req.body.scheduleId);
-            req.session.schedule = scheduleResult;
             req.session.auth = req.body.scheduleId;
             res.redirect('/schedule/' + scheduleId);
         }

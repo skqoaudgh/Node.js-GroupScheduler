@@ -13,8 +13,8 @@ async function getSchedules() {
 
 module.exports = async (req, res, next) => {
     const schedule = await getSchedules();
-    const create = req.session.create;
-    const code = req.session.code;
+    const create = req.flash('create');
+    const code = req.flash('code');
     req.session.destroy();
     res.render('index.ejs', {schedule: schedule, create: create, code: code});
 };

@@ -43,9 +43,8 @@ function mergeDate(arrayDate, inputDate) {
 
 module.exports = {
     detailSchedule: async (req, res, next) => {
-        const create = req.session.create;
+        const create = req.flash('create');
         const auth = req.session.auth;
-        req.session.create = false;
         if(auth == req.params.id) {
             try {
                 const scheduleResult = await Schedule.findById(req.params.id);
@@ -71,7 +70,7 @@ module.exports = {
             isAvailablePeriod: flag
         });
         await period.save();
-        req.session.create = true;
+        req.flash('create', 'true');
         res.redirect('/schedule/' + req.body.scheduleId);      
     },
 
@@ -91,7 +90,7 @@ module.exports = {
                 };
                 period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
             });
-            res.render('canlendar.ejs', {schedule: req.session.schedule, userPeriod: period});
+            res.render('calendar.ejs', {schedule: req.session.schedule, userPeriod: period});
         }
     }
 }
