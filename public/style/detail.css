@@ -117,3 +117,24 @@ textarea {
     color: #6c93ff;
     background: white;
 }
+
+.period {
+    display: flex;
+    line-height: 40px;
+    width: 600px;
+}
+
+select {
+    width: 78px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 12px 10px 12px 10px;
+    clear: both;
+    outline: none;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 20px;
+    background: #455fa8;
+    color: white;
+}

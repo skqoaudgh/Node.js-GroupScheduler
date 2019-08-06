@@ -27,8 +27,15 @@
             <form method="POST" action="/create" name="Form" enctype="multipart/form-data" onsubmit="return validateForm()">
                 <input type="text" name="name" id="create-name" placeholder="Name" autocomplete="off">
                 <input type="text" name="title" id="create-title" placeholder="Title" autocomplete="off">
-                <input type="date" name="periodStart" id="create-start">
-                <input type="date" name="periodEnd" id="create-end" placeholder="date">
+                <div class="period">
+                    <select class="startPeriod" name="startYear"></select>
+                    <select class="startPeriod" name="startMonth"></select>
+                    <select class="startPeriod" name="startDay"></select>
+                    <span style="color:white;">~&nbsp;&nbsp;</span>
+                    <select class="endPeriod" name="endYear"></select>
+                    <select class="endPeriod" name="endMonth"></select>
+                    <select class="endPeriod" name="endDay"></select>
+                </div>
                 <textarea rows="5" name="comment" id="create-comment" placeholder="Comment"></textarea>
                 <div id="inputFile">
                     <p id="fileTitle"></p>
@@ -41,4 +48,5 @@
     </section>
 </body>
 <script type="text/javascript" src="/script/create.js"></script>
+<script type="text/javascript" src="/script/date.js"></script>
 </html>

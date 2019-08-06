@@ -34,11 +34,11 @@ module.exports = {
         const code = Math.floor(Math.random() * 90000) + 10000;
         const host = (req.get('host')=='localhost:3000')?('lvh.me:3000'):(req.get('host'));
         const longUrl = req.protocol + '://' + host + '/schedule/' + schedule.id;
-        
+
         schedule.Creator = req.body.name;
         schedule.Title = req.body.title;
-        schedule.StartPeriod = req.body.periodStart;
-        schedule.EndPeriod = req.body.periodEnd;
+        schedule.StartPeriod = new Date(req.body.startYear, req.body.startMonth-1, req.body.startDay);
+        schedule.EndPeriod = new Date(req.body.endYear, req.body.endMonth-1, req.body.endDay);
         schedule.Comment = req.body.comment;
         schedule.Image = images;
         schedule.AuthCode = code;

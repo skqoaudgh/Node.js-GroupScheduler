@@ -1,10 +1,7 @@
-document.getElementById('myStart').valueAsDate = document.getElementById('periodStart').valueAsDate;
-document.getElementById('myEnd').valueAsDate = document.getElementById('periodEnd').valueAsDate;
-
 function validateForm() {
     const name = document.forms['Form']['name'].value;
-    const myStart = document.forms['Form']['myStart'].value;
-    const myEnd = document.forms['Form']['myEnd'].value;
+    const myStart = new Date(startPeriod[0].value, startPeriod[1].value-1, startPeriod[2].value).convertDateFormat();
+    const myEnd = new Date(endPeriod[0].value, endPeriod[1].value-1, endPeriod[2].value).convertDateFormat();
     const periodStart = document.getElementById('periodStart').value;
     const periodEnd = document.getElementById('periodEnd').value;
     const today = new Date().convertDateFormat();

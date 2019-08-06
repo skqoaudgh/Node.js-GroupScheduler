@@ -19,7 +19,7 @@
     margin-bottom: 20px;
 }
 
-#create-form input, textarea {
+#create-form form > input, #create-form form > textarea {
     width: 500px;
     margin-bottom: 15px;
     padding: 12px 20px 12px 20px;
@@ -39,6 +39,32 @@
 
 #create-form input::placeholder, textarea::placeholder {
     color: grey;
+}
+
+.period {
+    display: flex;
+    line-height: 40px;
+    width: 600px;
+}
+
+select {
+    width: 78px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    padding: 12px 10px 12px 10px;
+    clear: both;
+    outline: none;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 20px;
+    background: #455fa8;
+    color: white;
+}
+
+.periodText {
+    margin-right: 15px;
+    color: white;
 }
 
 #inputFile #fileTitle {

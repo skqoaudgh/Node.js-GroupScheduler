@@ -1,15 +1,13 @@
 const periodStart = document.getElementById('create-start');
 const inputFile = document.getElementById('create-image');
 
-periodStart.valueAsDate = new Date();
 inputFile.addEventListener('change', fileUploadHandler);
-
 
 function validateForm() {
     const name = document.forms['Form']['name'].value;
     const title = document.forms['Form']['title'].value;
-    const periodStart = document.forms['Form']['periodStart'].value;
-    const periodEnd = document.forms['Form']['periodEnd'].value;
+    const periodStart = new Date(startPeriod[0].value, startPeriod[1].value, startPeriod[2].value).toISOString();
+    const periodEnd = new Date(endPeriod[0].value, endPeriod[1].value, endPeriod[2].value).toISOString();
     const comment = document.forms['Form']['comment'].value;
 
     if(title == null || title == '' || name == null || name == '' || periodStart == null || periodStart == '' 

@@ -57,8 +57,15 @@
                 <form method="POST" action="/detail" name="Form" onsubmit="return validateForm()">
                     <h1 class="comment">Write your schedule</h1>
                     <input type="text" class="textForm" name="name" placeholder="Name" autocomplete="off">
-                    <input type="date" class="textForm" name="myStart" id="myStart">
-                    <input type="date" class="textForm" name="myEnd" id="myEnd">
+                    <div class="period">
+                        <select class="startPeriod" name="startYear"></select>
+                        <select class="startPeriod" name="startMonth"></select>
+                        <select class="startPeriod" name="startDay"></select>
+                        <span style="color:white;">~&nbsp;&nbsp;</span>
+                        <select class="endPeriod" name="endYear"></select>
+                        <select class="endPeriod" name="endMonth"></select>
+                        <select class="endPeriod" name="endDay"></select>
+                    </div>
                     <div class="radio-wrapper">
                         <div class="radio-group">
                                 <input type="radio" id="available" name="periodFlag" value="ok" checked><label for="available">Available Period</label><input type="radio" id="unavailable" name="periodFlag" value="no"><label for="unavailable">Unavailable Period</label>
@@ -96,4 +103,5 @@
     });
 </script>
 <script type="text/javascript" src="/script/detail.js"></script>
+<script type="text/javascript" src="/script/date.js"></script>
 </html>

@@ -19,7 +19,7 @@ Date.prototype.convertDateFormat = function() {
 schedule.forEach(element => {
     const start = new Date(element.StartPeriod).convertDateFormat();
     const end = new Date(element.EndPeriod).convertDateFormat();
-    if(end < new Date().toISOString()) {
+    if(end < new Date().convertDateFormat()) {
         content += `<tr class="schedule-li" style="color: red; cursor: default;">`;
     }
     else {

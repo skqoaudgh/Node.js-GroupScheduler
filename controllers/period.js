@@ -65,8 +65,8 @@ module.exports = {
         let period = new Period({
             Creator: req.body.name,
             Schedule: req.body.scheduleId,
-            StartPeriod: req.body.myStart,
-            EndPeriod: req.body.myEnd,
+            StartPeriod: new Date(req.body.startYear, req.body.startMonth-1, req.body.startDay),
+            EndPeriod: new Date(req.body.endYear, req.body.endMonth-1, req.body.endDay),
             isAvailablePeriod: flag
         });
         await period.save();
