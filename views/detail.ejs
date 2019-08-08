@@ -32,11 +32,11 @@
             </div>
             <div class="detailInfo-wrapper">
                 <label for="periodStart">Start Period</label>
-                <input type="date" class="textForm" name="periodStart" id="periodStart" readonly>
+                <input type="text" class="textForm" name="periodStart" id="periodStart" readonly>
             </div>
             <div class="detailInfo-wrapper">
                 <label for="periodEnd">End Period</label>
-                <input type="date" class="textForm" name="periodEnd" id="periodEnd" readonly>
+                <input type="text" class="textForm" name="periodEnd" id="periodEnd" readonly>
             </div>
             <div class="detailInfo-wrapper">
                 <label for="comment">Comment</label>
@@ -84,9 +84,11 @@
         </div>
     </section>
 </body>
+<script type="text/javascript" src="/script/detail.js"></script>
+<script type="text/javascript" src="/script/date.js"></script>
 <script>
-    document.getElementById('periodStart').valueAsDate = new Date('<%= schedule.StartPeriod %>');
-    document.getElementById('periodEnd').valueAsDate = new Date('<%= schedule.EndPeriod %>');
+    document.getElementById('periodStart').value = new Date('<%= schedule.StartPeriod %>').convertDateFormat();
+    document.getElementById('periodEnd').value = new Date('<%= schedule.EndPeriod %>').convertDateFormat();
     const shareBtn = document.getElementById('shareBtn');
     const shareURL = document.getElementById('shareURL');
 
@@ -102,6 +104,4 @@
         alert('공유 주소가 클립보드에 복사되었습니다.\n보안코드와 함께 공유하세요!');
     });
 </script>
-<script type="text/javascript" src="/script/detail.js"></script>
-<script type="text/javascript" src="/script/date.js"></script>
 </html>

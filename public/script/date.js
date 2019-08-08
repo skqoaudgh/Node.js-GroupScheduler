@@ -27,15 +27,15 @@ function initDateDropdown() {
         startPeriod[1].options[month] = new Option(month+1, month+1, true, true);
 
         endPeriod[1].options[i] = new Option(i+1, i+1);
-        endPeriod[1].options[month] = new Option(month+1, month+1, true, true);     
+        endPeriod[1].options[month] = new Option(month+1, month+1, true, true);
     }
     const max = new Date(year, month+1, 0);
     for(let i=0; i<max.getDate(); i++) {
         startPeriod[2].options[i] = new Option(i+1, i+1);
-        startPeriod[2].options[date] = new Option(date, date, true, true);
+        startPeriod[2].options[date-1] = new Option(date, date, true, true);
 
         endPeriod[2].options[i] = new Option(i+1, i+1);
-        endPeriod[2].options[date] = new Option(date, date, true, true);       
+        endPeriod[2].options[date-1] = new Option(date, date, true, true);
     }
 }
 
