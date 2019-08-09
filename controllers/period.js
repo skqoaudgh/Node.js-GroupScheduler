@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Schedule = require('../models/schedule');
 const Period = require('../models/period');
 
@@ -11,7 +12,6 @@ Date.prototype.convertDateFormat = function() {
            ].join('-');
 };
 
-// arrayDate[0]: 일정의 전체기간. arrayDate[1~N]: 불가능한 기간
 function mergeDate(arrayDate, inputDate) {
     let adjustedPeriod = [];
     if(inputDate.flag == true) {
@@ -79,18 +79,28 @@ module.exports = {
             res.redirect('/');
         }
         else {
-            const periodResults = await Period.find({Schedule:req.params.id});
-            let period = [];
-            periodResults.forEach(periodResult => {
-                const inputPeriod = {
-                    start: periodResult.StartPeriod.toISOString(),
-                    end: periodResult.EndPeriod.toISOString(),
-                    flag: periodResult.isAvailablePeriod,
-                    creator: periodResult.Creator
-                };
-                period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
-            });
-            res.render('calendar.ejs', {schedule: req.session.schedule, userPeriod: period});
+            if(mongoose.Types.ObjectId.isValid(req.params.id)) {
+                const periodResults = await Period.find({Schedule:req.params.id});
+                if(periodResults != null) {
+                    let period = [];
+                    periodResults.forEach(periodResult => {
+                        const inputPeriod = {
+                            start: periodResult.StartPeriod.toISOString(),
+                            end: periodResult.EndPeriod.toISOString(),
+                            flag: periodResult.isAvailablePeriod,
+                            creator: periodResult.Creator
+                        };
+                        period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
+                    });
+                    res.render('calendar.ejs', {schedule: req.session.schedule, userPeriod: period});
+                }
+                else {
+                    res.redirect('/');
+                }
+            }
+            else {
+                res.redirect('/');
+            }
         }
     }
 }

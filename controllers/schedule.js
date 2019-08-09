@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Schedule = require('../models/schedule');
 
 async function shareSchedule(longUrl) {
@@ -52,12 +53,23 @@ module.exports = {
 
     getAuthSchedule: async (req, res, next) => {
         try {
-            req.session.auth = null;
-            const result = await Schedule.findById(req.params.id, 'AuthCode');
-            res.render('auth.ejs', {authCode: result.AuthCode, scheduleId: req.params.id, isFail: false});
+            if(mongoose.Types.ObjectId.isValid(req.params.id)) {
+                req.session.auth = null;
+                const result = await Schedule.findById(req.params.id, 'AuthCode');
+                if(result != null) {
+                    res.render('auth.ejs', {authCode: result.AuthCode, scheduleId: req.params.id, isFail: false});
+                }
+                else {
+                    res.redirect('/');
+                }
+            }
+            else {
+                res.redirect('/');
+            }
         }
         catch(err) {
             console.error(err);
+            res.redirect('/');
         }
     },
 
