@@ -35,6 +35,9 @@
     
     if('<%= create %>' == 'true')
         alert('일정이 등록되었습니다.\n접근을 위한 보안 코드는 [<%= code %>]입니다. 꼭 기억해주세요!');
+
+    if('<%= error %>' == 'true')
+        alert('작업을 수행하는 도중에 오류가 발생했습니다.\n다시 시도해주세요.');
 </script>
 <script type="text/javascript" src="script/index.js"></script>
 </html>

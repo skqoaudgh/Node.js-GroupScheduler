@@ -53,6 +53,8 @@ module.exports = {
             }
             catch(err) {
                 console.error(err);
+                req.flash('error', 'true');
+                res.redirect('/');
             }
         }
         else {
@@ -76,29 +78,39 @@ module.exports = {
 
     printSchedule: async (req, res, next) => {
         if(req.session.schedule == null) {
+            req.flash('error', 'true');
             res.redirect('/');
         }
         else {
-            if(mongoose.Types.ObjectId.isValid(req.params.id)) {
-                const periodResults = await Period.find({Schedule:req.params.id});
-                if(periodResults != null) {
-                    let period = [];
-                    periodResults.forEach(periodResult => {
-                        const inputPeriod = {
-                            start: periodResult.StartPeriod.toISOString(),
-                            end: periodResult.EndPeriod.toISOString(),
-                            flag: periodResult.isAvailablePeriod,
-                            creator: periodResult.Creator
-                        };
-                        period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
-                    });
-                    res.render('calendar.ejs', {schedule: req.session.schedule, userPeriod: period});
+            try {
+                if(mongoose.Types.ObjectId.isValid(req.params.id)) {
+                    const periodResults = await Period.find({Schedule:req.params.id});
+                    if(periodResults != null) {
+                        let period = [];
+                        periodResults.forEach(periodResult => {
+                            const inputPeriod = {
+                                start: periodResult.StartPeriod.toISOString(),
+                                end: periodResult.EndPeriod.toISOString(),
+                                flag: periodResult.isAvailablePeriod,
+                                creator: periodResult.Creator
+                            };
+                            period = period.concat(mergeDate([req.session.schedule.StartPeriod, req.session.schedule.EndPeriod], inputPeriod));
+                        });
+                        res.render('calendar.ejs', {schedule: req.session.schedule, userPeriod: period});
+                    }
+                    else {
+                        req.flash('error', 'true');
+                        res.redirect('/');
+                    }
                 }
                 else {
+                    req.flash('error', 'true');
                     res.redirect('/');
                 }
             }
-            else {
+            catch(err) {
+                console.error(err);
+                req.flash('error', 'true');
                 res.redirect('/');
             }
         }

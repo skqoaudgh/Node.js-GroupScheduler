@@ -60,15 +60,18 @@ module.exports = {
                     res.render('auth.ejs', {authCode: result.AuthCode, scheduleId: req.params.id, isFail: false});
                 }
                 else {
+                    req.flash('error', 'true');
                     res.redirect('/');
                 }
             }
             else {
+                req.flash('error', 'true');
                 res.redirect('/');
             }
         }
         catch(err) {
             console.error(err);
+            req.flash('error', 'true');
             res.redirect('/');
         }
     },

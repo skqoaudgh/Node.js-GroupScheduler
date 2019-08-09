@@ -7,14 +7,22 @@ async function getSchedules() {
         return resultB.concat(resultA);
     }
     catch(err) {
-        console.error(err);
+        throw new err;
     }
 }
 
 module.exports = async (req, res, next) => {
-    const schedule = await getSchedules();
-    const create = req.flash('create');
-    const code = req.flash('code');
-    req.session.destroy();
-    res.render('index.ejs', {schedule: schedule, create: create, code: code});
+    try {
+        const schedule = await getSchedules();
+        const create = req.flash('create');
+        const code = req.flash('code');
+        const error = req.flash('error');
+        req.session.destroy();
+        res.render('index.ejs', {schedule: schedule, create: create, code: code, error: error});
+    }
+    catch(err) {
+        console.log(err);
+        req.flash('error', 'true');
+        res.redirect('/');
+    }
 };
