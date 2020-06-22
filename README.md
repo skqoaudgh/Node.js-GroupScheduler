@@ -49,6 +49,3 @@ npm start
 // If you don`t wanna use nodemon
 node server.js
 ```
-
-## Service
-[바로가기](http://54.180.74.103:3000)
